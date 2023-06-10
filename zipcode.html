@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<title>Zip Code </title>
+	<meta charset="utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+    
+    </style>
+
+
+</head>
+
+
+<body style="background-color: pink;">
+
+    <h1> Information Straight from the API </h1>
+
+    <div id="location"></div>
+
+    <h2> Here is the information Displayed a little better</h2>
+
+    <p id="country"> </p> </br>
+    <p id="zip"> </p>
+
+    <script type="text/javascript">
+        var client = new XMLHttpRequest();
+        client.open("GET", "https://api.zippopotam.us/us/02155", true);
+        client.onreadystatechange = function() {
+            if(client.readyState == 4) {
+                var data = client.responseText;
+                
+                document.getElementById("location").innerHTML = data;
+
+                var location = JSON.parse(data);
+
+               country = location.country;
+               post_code = location["post code"];
+               
+               document.getElementById("country").innerHTML = country;
+               document.getElementById("zip").innerHTML = post_code;
+               
+             
+                
+        };
+        };
+        
+        client.send();
+
+        fetch("https://api.zippopotam.us/us/0215")
+               .then((response) => response.json())
+                .then((data) => console.log(data));
+        </script>
+
+<p> This API returns information about an area depending on what zip code it is in. It will return a JSON with the zip code, longitude and latitude, also the city and country name belonging to that zip code. This API is helpful for using autofill when someone inputs their zip code , or building a map based on zip codes. I used the Get option to request the JSON. </br> </p>
+<a href="https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/"> Link to where I found the API </a>
+
+
+</body>
+
+</html>
